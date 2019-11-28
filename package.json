@@ -1,0 +1,24 @@
+{
+    "name": "@grafite/helpers",
+    "version": "0.0.1",
+    "description": "A set of helpers for strings and arrays.",
+    "license": "MIT",
+    "repository": "grafiteinc/helpers",
+    "author": "Matt Lantz",
+    "main": "src/",
+    "keywords": [
+        "laravel",
+        "helpers"
+    ],
+    "scripts": {
+        "test": "mocha"
+    },
+    "devDependencies": {
+        "camelcase": "^5.3.1",
+        "chai": "^4.2.0",
+        "mocha": "^6.2.2",
+        "pluralize": "^8.0.0",
+        "slugify": "^1.3.6",
+        "window-or-global": "^1.0.1"
+    }
+}
