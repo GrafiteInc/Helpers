@@ -1,4 +1,4 @@
-#Helpers
+![Grafite Helpers](GrafiteHelpers-banner.png)
 
 A collection of String and Array helpers for Laravel developers who would like to use helpers in their Javascript.
 
@@ -7,9 +7,8 @@ A collection of String and Array helpers for Laravel developers who would like t
 
 ### Installation
 
-Start a new Laravel project:
-```shell
-npm i grafite/helpers --save-dev
+```bash
+npm i grafite/helpers
 ```
 
 ## Documentation
