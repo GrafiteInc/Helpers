@@ -8,7 +8,7 @@ A collection of String and Array helpers for Laravel developers who would like t
 ### Installation
 
 ```bash
-npm i grafite/helpers
+npm i @grafite/helpers
 ```
 
 ## Documentation
