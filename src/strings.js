@@ -1,178 +1,185 @@
-require('./array');
+// require('./array');
 
 var pluralize = require('pluralize');
 var slugify = require('slugify');
 var camelCase = require('camelcase');
 
-String.prototype.explode = function (delimiter =" ") {
-    return this.valueOf().split(delimiter)
-}
+const StringHelper = function (str) {
+    return {
 
-String.prototype.after = function (key) {
-    let location = this.indexOf(key);
-    return this.valueOf().substring(location + key.length);
-}
+        explode (delimiter =" ") {
+            return str.valueOf().split(delimiter)
+        },
 
-String.prototype.afterLast = function (key) {
-    let location = this.lastIndexOf(key);
-    return this.valueOf().substring(location + key.length);
-}
+        after (key) {
+            let location = str.indexOf(key);
+            return str.valueOf().substring(location + key.length);
+        },
 
-String.prototype.before = function (key) {
-    let location = this.indexOf(key);
-    return this.valueOf().substring(0, location);
-}
+        afterLast (key) {
+            let location = str.lastIndexOf(key);
+            return str.valueOf().substring(location + key.length);
+        },
 
-String.prototype.beforeLast = function (key) {
-    let location = this.lastIndexOf(key);
-    return this.valueOf().substring(0, location);
-}
+        before (key) {
+            let location = str.indexOf(key);
+            return str.valueOf().substring(0, location);
+        },
 
-String.prototype.camel = function () {
-    return camelCase(this.valueOf());
-}
+        beforeLast (key) {
+            let location = str.lastIndexOf(key);
+            return str.valueOf().substring(0, location);
+        },
 
-String.prototype.contains = function (str) {
-    return this.indexOf(str) > -1;
-}
+        camel () {
+            return camelCase(str.valueOf());
+        },
 
-String.prototype.containsAll = function (keys) {
-    for (let i = 0; i < keys.length; i++) {
-        if (this.indexOf(keys[i]) === -1) {
-            return false
+        contains (string) {
+            return str.indexOf(string) > -1;
+        },
+
+        containsAll (keys) {
+            for (let i = 0; i < keys.length; i++) {
+                if (str.indexOf(keys[i]) === -1) {
+                    return false
+                }
+            }
+
+            return true;
+        },
+
+        endsWith (key) {
+            let location = str.indexOf(key);
+
+            if (location + key.length === str.length) {
+                return true;
+            }
+
+            return false;
+        },
+
+        finish (value) {
+            let location = str.lastIndexOf(value);
+
+            if (location + value.length === str.length) {
+                return str.valueOf();
+            }
+
+            return str.valueOf() + value;
+        },
+
+        is (string) {
+            return str.valueOf() === string;
+        },
+
+        kebab () {
+            return slugify(str.valueOf());
+        },
+
+        limit (limit) {
+            let limitedString = str.substring(0, limit);
+            limitedString = limitedString.trimEnd();
+
+            if (str.length > limit) {
+                limitedString = `${limitedString}...`;
+            }
+
+            return limitedString;
+        },
+
+        plural (numberOf =2) {
+            let string = str.valueOf();
+            return pluralize(string, numberOf);
+        },
+
+        replaceArray (key, values) {
+            let words = str.valueOf().split(" ");
+            var regex = new RegExp(key.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
+            let count = (str.match(regex) || []).length;
+            let valueIndex = 0;
+
+            if (count != values.length) {
+                throw new Error('Not enough values to replace all');
+            }
+
+            for (let i = 0; i < words.length; i++) {
+                if (words[i] === key) {
+                    words[i] = values[valueIndex];
+                    valueIndex++;
+                }
+            }
+
+            return words.join(' ');
+        },
+
+        replaceFirst (key, value) {
+            let location = str.indexOf(key);
+
+            return str.valueOf().substring(0, location)
+                + value
+                + str.valueOf().substring(location + key.length);
+        },
+
+        replaceLast (key, value) {
+            let location = str.lastIndexOf(key);
+
+            return str.valueOf().substring(0, location)
+                + value
+                + str.valueOf().substring(location + key.length);
+        },
+
+        singular (numberOf =1) {
+            let string = str.valueOf();
+            return pluralize(string, numberOf);
+        },
+
+        slug (separator ='-') {
+            let string = str.valueOf();
+            return slugify(string, separator);
+        },
+
+        snake () {
+            return slugify(str.valueOf().toLowerCase(), '_');
+        },
+
+        start (value) {
+            if (str.indexOf(value) === 0) {
+                return str.valueOf();
+            }
+
+            return value + str.valueOf();
+        },
+
+        startsWith (key) {
+            return str.indexOf(key) === 0;
+        },
+
+        title () {
+            let string = str.valueOf().split(" ");
+
+            for (let i = 0; i < string.length; i++) {
+                string[i] = string[i].charAt(0).toUpperCase() + string[i].substring(1);
+            }
+
+            return string.join(" ");
+        },
+
+        words (limit) {
+            let snippet = [];
+            let words = str.valueOf().split(" ");
+
+            if (words.length > limit) {
+                for (let i = 0; i < limit; i++) {
+                    snippet.push(words[i]);
+                }
+
+                return `${snippet.join(" ")}...`;
+            }
+
+            return words.join(" ");
         }
     }
-
-    return true;
 }
 
-String.prototype.endsWith = function (key) {
-    let location = this.indexOf(key);
-
-    if (location + key.length === this.length) {
-        return true;
-    }
-
-    return false;
-}
-
-String.prototype.finish = function (value) {
-    let location = this.lastIndexOf(value);
-
-    if (location + value.length === this.length) {
-        return this.valueOf();
-    }
-
-    return this.valueOf() + value;
-}
-
-String.prototype.is = function (str) {
-    return this.valueOf() === str;
-}
-
-String.prototype.kebab = function () {
-    return slugify(this.valueOf());
-}
-
-String.prototype.limit = function (limit) {
-    let limitedString = this.substring(0, limit);
-    limitedString = limitedString.trimEnd();
-
-    if (this.length > limit) {
-        limitedString = `${limitedString}...`;
-    }
-
-    return limitedString;
-}
-
-String.prototype.plural = function (numberOf =2) {
-    let str = this.valueOf();
-    return pluralize(str, numberOf);
-}
-
-String.prototype.replaceArray = function (key, values) {
-    let words = this.valueOf().explode();
-    var regex = new RegExp(key.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
-    let count = (this.match(regex) || []).length;
-    let valueIndex = 0;
-
-    if (count != values.length) {
-        throw new Error('Not enough values to replace all');
-    }
-
-    for (let i = 0; i < words.length; i++) {
-        if (words[i] === key) {
-            words[i] = values[valueIndex];
-            valueIndex++;
-        }
-    }
-
-    return words.implode();
-}
-
-String.prototype.replaceFirst = function (key, value) {
-    let location = this.indexOf(key);
-
-    return this.valueOf().substring(0, location)
-        + value
-        + this.valueOf().substring(location + key.length);
-}
-
-String.prototype.replaceLast = function (key, value) {
-    let location = this.lastIndexOf(key);
-
-    return this.valueOf().substring(0, location)
-        + value
-        + this.valueOf().substring(location + key.length);
-}
-
-String.prototype.singular = function (numberOf =1) {
-    let str = this.valueOf();
-    return pluralize(str, numberOf);
-}
-
-String.prototype.slug = function (separator ='-') {
-    let str = this.valueOf();
-    return slugify(str, separator);
-}
-
-String.prototype.snake = function () {
-    return slugify(this.valueOf().toLowerCase(), '_');
-}
-
-String.prototype.start = function (value) {
-    if (this.indexOf(value) === 0) {
-        return this.valueOf();
-    }
-
-    return value + this.valueOf();
-}
-
-String.prototype.startsWith = function (key) {
-    return this.indexOf(key) === 0;
-}
-
-String.prototype.title = function () {
-    let string = this.valueOf().explode();
-
-    for (let i = 0; i < string.length; i++) {
-        string[i] = string[i].charAt(0).toUpperCase() + string[i].substring(1);
-    }
-
-    return string.implode();
-}
-
-String.prototype.words = function (limit) {
-    let snippet = [];
-    let words = this.valueOf().explode();
-
-    if (words.length > limit) {
-        for (let i = 0; i < limit; i++) {
-            snippet.push(words[i]);
-        }
-
-        return `${snippet.implode()}...`;
-    }
-
-    return words.implode();
-}
+module.exports = StringHelper;

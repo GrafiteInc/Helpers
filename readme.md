@@ -1,6 +1,6 @@
 ![Grafite Helpers](GrafiteHelpers-banner.png)
 
-A collection of String and Array helpers for Laravel developers who would like to use helpers in their Javascript.
+A collection of String and Array helpers for Laravel developers who would like to use similar helpers in their Javascript.
 
 ##### Author(s):
 * [Matt Lantz](https://github.com/mlantz) ([@mattylantz](http://twitter.com/mattylantz), mattlantz at gmail dot com)
@@ -9,6 +9,12 @@ A collection of String and Array helpers for Laravel developers who would like t
 
 ```bash
 npm i @grafite/helpers
+```
+
+### Use
+
+```bash
+const helper = require('@grafite/helpers');
 ```
 
 ## Documentation

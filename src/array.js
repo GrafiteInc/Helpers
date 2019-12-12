@@ -1,22 +1,28 @@
-Array.prototype.implode = function (delimiter =" ") {
-    return this.join(delimiter);
-}
+const ArrayHelper = function (array) {
+    return {
+        implode (delimiter =" ") {
+            return array.join(delimiter);
+        },
 
-Array.prototype.first = function () {
-    return this.valueOf()[0];
-}
+        first () {
+            return array.valueOf()[0];
+        },
 
-Array.prototype.last = function () {
-    return this.valueOf()[this.length - 1];
-}
+        last () {
+            return array.valueOf()[array.length - 1];
+        },
 
-Array.prototype.remove = function (key) {
-    let items = this.valueOf();
-    let index = this.indexOf(key);
+        remove (key) {
+            let items = array.valueOf();
+            let index = array.indexOf(key);
 
-    if (index > -1) {
-        items.splice(index, 1);
+            if (index > -1) {
+                items.splice(index, 1);
+            }
+
+            return items;
+        }
     }
-
-    return items;
 }
+
+module.exports = ArrayHelper;
