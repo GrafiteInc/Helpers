@@ -159,7 +159,7 @@ const StringHelper = function (str) {
             let string = str.valueOf().split(" ");
 
             for (let i = 0; i < string.length; i++) {
-                string[i] = string[i].charAt(0).toUpperCase() + string[i].substring(1);
+                string[i] = string[i].charAt(0).toUpperCase() + string[i].substring(1).toLowerCase();
             }
 
             return string.join(" ");
